@@ -81,7 +81,7 @@
         this.whatIsMyWeather(newCity)
       }
     },
-    method: {
+    methods: {
       async getGeo(city){
         console.log("ejecutando getGeo")
         const key = "6d5be153d1845439a14a46ff7b6fd28a"
@@ -95,7 +95,6 @@
         }
       },
       async whatIsMyWeather(city){
-        consolo.log("ejecutando whatIsMyWeather")
         const key = "6d5be153d1845439a14a46ff7b6fd28a"
         const lengua ="es"
         const {lat, lon}= await this.getGeo(city)
