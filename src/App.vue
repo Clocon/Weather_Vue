@@ -77,30 +77,31 @@
     },
     watch:{
       city(newCity){
+        console.log(newCity)
         this.whatIsMyWeather(newCity)
       }
     },
     method: {
       async getGeo(city){
+        console.log("ejecutando getGeo")
         const key = "6d5be153d1845439a14a46ff7b6fd28a"
-        const urlGeocode= `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${key}`
-
         try {
-          const requestGeo = await fetch(urlGeocode)
-          const geoData= await requestGeo.json()
+          const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${key}`)
+          const geoData= await response.json()
+          console.log(city, key, geoData[0].lat, geoData[0].lon )
           return {lat: geoData[0].lat, lon:geoData[0].lon}
         }catch(error){
           console.log("Se ha producido un error al buscar la ciudad")
         }
       },
-      
       async whatIsMyWeather(city){
+        consolo.log("ejecutando whatIsMyWeather")
         const key = "6d5be153d1845439a14a46ff7b6fd28a"
         const lengua ="es"
         const {lat, lon}= await this.getGeo(city)
         try{ 
-          const request = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=${lengua}`)
-          const data = await request.json()
+          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=${lengua}`)
+          const data = await response.json()
         
           document.querySelector(".heading").innerHTML=data.weather[0].description
           document.querySelector(".location").innerHTML=data.name
@@ -108,11 +109,9 @@
           document.querySelector(".humidity").innerHTML=data.main.humidity
           document.querySelector(".wind-speed").innerHTML=data.wind.speed
         }catch(error){
-          console.log ("error man")
+          console.log ("No ha sido posible conectar con el servidor, recuerde poner bien los datos y asegurarse de estar unsando una ApiKey válida")
         }
       }
     }
   }
 </script>
-
-<style scoped></style>
