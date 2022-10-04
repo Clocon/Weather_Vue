@@ -1,88 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Weather Demo</title>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link href="./src/main.css" rel="stylesheet" id="bootstrap-css">
-</head>
-
-<body>
-
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="weather-card one">
-                        <div>
-                            <select name="" class="border-none" id="ciudades">
-                              <option>Seleccione Ciudad</option>
-                              <option value="Málaga">Málaga</option>
-                              <option value="Huelva">Huelva</option>
-                              <option value="Cádiz">Cádiz</option>
-                              <option value="Córdoba">Córdoba</option>
-                              <option value="Almería">Almería</option>
-                              <option value="Sevilla">Sevilla</option>
-                              <option value="Jaen">Jaen</option>
-                              <option value="Granada">Granada</option>
-                            </select>
-                          </div>
-                          <div>
-                            <select name="" class="border-none" id="language">
-                              <option value="es">Español</option>
-                              <option value="en">English</option>
-                              <option value="de">Deutsch</option>
-                              <option value="fr">Français</option>
-                              <option value="pt">Português</option>
-                              <option value="zh_tw">中国人</option>
-                              <option value="ar">عرب</option>
-                              <option value="uk">українська</option>
-                            </select>
-                          </div>
-                        <div class="top">
-                            <div class="wrapper">
-                                <h1 class="heading">XXX</h1>
-                                <h3 class="location">XXX</h3>
-                                <p class="temp">
-                                    <span class="temp-value">XX</span>
-                                    <span class="deg">0</span>
-                                    <a href="javascript:;"><span class="temp-type">C</span></a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="bottom">
-                            <div class="wrapper">
-                                <ul class="forecast mt-4">
-                                    <li>
-                                        <span class="date">
-                                                <i class="fas fa-tint"></i> Humedad
-                                        </span>
-                                        <span class="lnr condition">
-                                            <span class="temp"><span class="humidity">XX</span><span class="temp-type"> %</span></span>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span class="date">
-                                                <i class="fas fa-wind"></i> Viento
-                                        </span>
-                                        <span class="lnr condition">
-                                            <span class="temp"><span class="wind-speed">XX</span><span class="temp-type"> m/s</span></span>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script type="module" src="/src/weather.js"></script>
-
-</body>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Andalucia Weather</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
