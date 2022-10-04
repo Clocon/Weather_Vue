@@ -83,7 +83,6 @@
     },
     methods: {
       async getGeo(city){
-        console.log("ejecutando getGeo")
         const key = "6d5be153d1845439a14a46ff7b6fd28a"
         try {
           const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${key}`)
