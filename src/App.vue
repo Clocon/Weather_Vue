@@ -5,15 +5,7 @@
           <div class="weather-card one">
               <div>
                 <select class="border-none" id="ciudades" v-model="city" >
-                  <option>Seleccione Ciudad</option>
-                  <option value="Málaga">Málaga</option>
-                  <option value="Huelva">Huelva</option>
-                  <option value="Cádiz">Cádiz</option>
-                  <option value="Córdoba">Córdoba</option>
-                  <option value="Almería">Almería</option>
-                  <option value="Sevilla">Sevilla</option>
-                  <option value="Jaen">Jaen</option>
-                  <option value="Granada">Granada</option>
+                  <option v-for="item in cities" :key="item.id ">{{item.label}}</option>
                 </select>
               </div>
               <div>
@@ -30,10 +22,11 @@
               </div>
               <div class="top">
                 <div class="wrapper">
-                  <h1 class="heading">XXX</h1>
-                  <h3 class="location">XXX</h3>
+                  <!-- Prueba de componente -->
+                  <heading :text="weather.heading" />
+                  <h3 class="location">{{weather.location}}</h3>
                   <p class="temp">
-                      <span class="temp-value">XX</span>
+                      <span class="temp-value">{{weather.temp}}</span>
                       <span class="deg">0</span>
                       <a href="javascript:;"><span class="temp-type">C</span></a>
                   </p>
@@ -47,7 +40,7 @@
                         <i class="fas fa-tint"></i> Humedad
                       </span>
                       <span class="lnr condition">
-                        <span class="temp"><span class="humidity">XX</span><span class="temp-type"> %</span></span>
+                        <span class="temp"><span class="humidity">{{weather.humidity}}</span><span class="temp-type"> %</span></span>
                       </span>
                     </li>
                     <li>
@@ -55,7 +48,7 @@
                         <i class="fas fa-wind"></i> Viento
                       </span>
                       <span class="lnr condition">
-                        <span class="temp"><span class="wind-speed">XX</span><span class="temp-type"> m/s</span></span>
+                        <span class="temp"><span class="wind-speed">{{weather.windSpeed}}</span><span class="temp-type"> m/s</span></span>
                       </span>
                     </li>
                   </ul>
@@ -68,46 +61,65 @@
 </template>
 
 <script>
+  import Heading  from '@/components/Heading.vue'
   export default{
     name: 'App',
+    components: {    
+      Heading
+    },
     data(){
       return{
-        city: 'Málaga'
+        key: "6d5be153d1845439a14a46ff7b6fd28a",
+        cities: [
+        {id:"Málaga", label:"Málaga"},
+        {id:"Cádiz",  label:"Cádiz"},
+        {id: "Córdoba",label:"Córdoba"},
+        {id: "Almería",label:"Almería"},
+        {id: "Sevilla",label:"Sevilla"},
+        {id: "Jaen",label:"Jaen"},
+        {id: "Granada",label:"Granada"},
+        {id: "Huelva",label:"Huelva"}
+        ],
+        city: 'Málaga',
+        weather:{
+          heading:'',
+          location:'',
+          temp:'',
+          humidity:'',
+          windSpeed:''  
+        }
       }
     },
     watch:{
       city(newCity){
-        console.log(newCity)
         this.whatIsMyWeather(newCity)
       }
     },
     methods: {
       async getGeo(city){
-        const key = "6d5be153d1845439a14a46ff7b6fd28a"
+        const urlGeocode= `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${this.key}`
+
         try {
-          const response = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${key}`)
-          const geoData= await response.json()
-          console.log(city, key, geoData[0].lat, geoData[0].lon )
+          const requestGeo = await fetch(urlGeocode)
+          const geoData= await requestGeo.json()
           return {lat: geoData[0].lat, lon:geoData[0].lon}
         }catch(error){
           console.log("Se ha producido un error al buscar la ciudad")
         }
       },
       async whatIsMyWeather(city){
-        const key = "6d5be153d1845439a14a46ff7b6fd28a"
         const lengua ="es"
         const {lat, lon}= await this.getGeo(city)
         try{ 
-          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}&units=metric&lang=${lengua}`)
-          const data = await response.json()
-        
-          document.querySelector(".heading").innerHTML=data.weather[0].description
-          document.querySelector(".location").innerHTML=data.name
-          document.querySelector(".temp-value").innerHTML=Math.round(data.main.feels_like)
-          document.querySelector(".humidity").innerHTML=data.main.humidity
-          document.querySelector(".wind-speed").innerHTML=data.wind.speed
+          const request = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.key}&units=metric&lang=${lengua}`)
+          const data = await request.json()
+          this.weather.heading=data.weather[0].description
+          this.weather.location=data.name
+          this.weather.temp=Math.round(data.main.feels_like)
+          this.weather.humidity=data.main.humidity
+          this.weather.windSpeed  =data.wind.speed
         }catch(error){
-          console.log ("No ha sido posible conectar con el servidor, recuerde poner bien los datos y asegurarse de estar unsando una ApiKey válida")
+          console.log ("error man")
         }
       }
     }
