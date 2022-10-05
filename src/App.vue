@@ -4,9 +4,9 @@
       <div class="col"> 
           <div class="weather-card one">
               <div>
-                <select class="border-none" id="ciudades" v-model="city" >
-                  <option v-for="item in cities" :key="item.id ">{{item.label}}</option>
-                </select>
+                <CitySelector v-model="city" :value="city" @input="cityChanged">
+
+                </CitySelector>
               </div>
               <div>
                 <select name="" class="border-none" id="language">
@@ -62,24 +62,16 @@
 
 <script>
   import Heading  from '@/components/Heading.vue'
+  import CitySelector  from '@/components/CitySelector.vue'
   export default{
     name: 'App',
     components: {    
-      Heading
+      Heading,
+      CitySelector
     },
     data(){
       return{
         key: "6d5be153d1845439a14a46ff7b6fd28a",
-        cities: [
-        {id:"Málaga", label:"Málaga"},
-        {id:"Cádiz",  label:"Cádiz"},
-        {id: "Córdoba",label:"Córdoba"},
-        {id: "Almería",label:"Almería"},
-        {id: "Sevilla",label:"Sevilla"},
-        {id: "Jaen",label:"Jaen"},
-        {id: "Granada",label:"Granada"},
-        {id: "Huelva",label:"Huelva"}
-        ],
         city: 'Málaga',
         weather:{
           heading:'sdfsdf',
@@ -124,6 +116,10 @@
       },
       titleClicked(){
         this.whatIsMyWeather(this.city)
+      },
+      CityChanged(selectedCity){
+        console.log(selectedCity)
+        this.city=selectedCity
       }
     },
     mounted(){
