@@ -23,7 +23,7 @@
               <div class="top">
                 <div class="wrapper">
                   <!-- Prueba de componente -->
-                  <heading :text="weather.heading" />
+                  <heading :text="weather.heading" @clicked="titleClicked" />
                   <h3 class="location">{{weather.location}}</h3>
                   <p class="temp">
                       <span class="temp-value">{{weather.temp}}</span>
@@ -82,11 +82,11 @@
         ],
         city: 'Málaga',
         weather:{
-          heading:'',
-          location:'',
-          temp:'',
-          humidity:'',
-          windSpeed:''  
+          heading:'sdfsdf',
+          location:'dsfsfs',
+          temp:'dsffsf',
+          humidity:'sdfsdf',
+          windSpeed:'fdsff'  
         }
       }
     },
@@ -120,8 +120,17 @@
           this.weather.windSpeed  =data.wind.speed
         }catch(error){
           console.log ("error man")
-        }
+        } 
+      },
+      titleClicked(){
+        this.whatIsMyWeather(this.city)
       }
+    },
+    mounted(){
+      this.whatIsMyWeather(this.city)
+/*       setInterval(()=>{
+        this.whatIsMyWeather(this.city, 5000)
+      }) */
     }
   }
 </script>

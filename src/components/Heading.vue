@@ -1,5 +1,5 @@
 <template>
-  <h1 class="heading">{{text}}</h1>
+  <h1 class="heading" @click="titleClicked">{{text}}</h1>
 </template>
 
 <script>
@@ -9,6 +9,11 @@
       text:{
         type: String,
         required: true
+      }
+    },
+    methods:{
+      titleClicked(){
+        this.$emit('clicked')
       }
     }
   }
