@@ -81,8 +81,10 @@ export default {
   data() {
     return {
       key: "6d5be153d1845439a14a46ff7b6fd28a",
-      city: 'malaga',
+      city: false,
       language: 'en',
+      lat: 0,
+      lon: 0,
       weather: {
         heading: '',
         location: '',
@@ -111,10 +113,10 @@ export default {
         return { lat: geoData[0].lat, lon: geoData[0].lon }
       } catch (error) {
         console.error("Se ha producido un error al buscar la ciudad", error)
-      }
+      } d
     },
-    async whatIsMyWeather() {
-      const { lat, lon } = await this.getGeo(this.city)
+    async whatIsMyWeather(lat, lon, language) {
+      this.city ? { lat, lon } = await this.getGeo(this.city) : console.info("Geolocalización obtenida con existo")
       try {
         const request = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.key}&units=metric&lang=${this.language}`)
         const data = await request.json()
@@ -132,16 +134,32 @@ export default {
     }
   },
   mounted() {
-    const selectedCity = localStorage.getItem("selected_city")
-    const selectedLanguage = localStorage.getItem("selected_language")
+    const funcionInit = () => {
+      if (!"geolocation" in navigator) {
+        this.city = localStorage.getItem("selected_city")
+        return alert("Tu navegador no soporta el acceso a la ubicación. Intenta con otro");
+      }
 
-    if (selectedCity) {
-      this.city = localStorage.getItem("selected_city")
+      const onUbicacionConcedida = ubicacion => {
+        this.lat = ubicacion.coords.latitude
+        this.lon = ubicacion.coords.longitude
+        this.whatIsMyWeather(this.lat, this.lon)
+
+      }
+
+      const onErrorDeUbicacion = err => {
+        console.error("Error obteniendo ubicación: ", err);
+      }
+
+      const opcionesDeSolicitud = {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 5000
+      };
+
+      navigator.geolocation.getCurrentPosition(onUbicacionConcedida, onErrorDeUbicacion, opcionesDeSolicitud);
     }
-    if (selectedLanguage) {
-      this.language = localStorage.getItem("selected_language")
-    }
-    this.whatIsMyWeather(this.city)
+    funcionInit()
   }
 }
 </script>
