@@ -5,48 +5,38 @@
         <div class="weather-card one">
           <div>
             <CitySelector v-model="city" :options="[
-            {id:'Málaga', label:'Málaga'},
-            {id:'Cádiz',  label:'Cádiz'},
-            {id: 'Córdoba',label:'Córdoba'},
-            {id: 'Almería',label:'Almería'},
-            {id: 'Sevilla',label:'Sevilla'},
-            {id: 'Jaen',label:'Jaen'},
-            {id: 'Granada',label:'Granada'},
-            {id: 'Huelva',label:'Huelva'}
+            {id:'malaga', label:'Málaga'},
+            {id:'cadiz',  label:'Cádiz'},
+            {id: 'cordoba',label:'Córdoba'},
+            {id: 'almeria',label:'Almería'},
+            {id: 'sevilla',label:'Sevilla'},
+            {id: 'jaen',label:'Jaén'},
+            {id: 'granada',label:'Granada'},
+            {id: 'huelva',label:'Huelva'}
             ]" />
 
           </div>
           <div>
             <CitySelector v-model="language" :options="[
+            {id:'en', label:'English'},
             {id:'es', label:'Español'},
-            {id:'en',  label:'English'},
             {id: 'de',label:'Deutsch'},
-            {id: 'fr',label:'Français'},
+            {id: 'fr', label:'Français'},
             {id: 'pt',label:'Português'},
             {id: 'zh_tw',label:'中国人'},
             {id: 'ar',label:'عرب'},
             {id: 'uk',label:'українська'}
             ]" />
-            <!--             <select name="" class="border-none" id="language">
-              <option value="es">Español</option>
-              <option value="en">English</option>
-              <option value="de">Deutsch</option>
-              <option value="fr">Français</option>
-              <option value="pt">Português</option>
-              <option value="zh_tw">中国人</option>
-              <option value="ar">عرب</option>
-              <option value="uk">українська</option>
-            </select> -->
           </div>
           <div class="top">
             <div class="wrapper">
               <!-- Prueba de componente -->
-              <heading :text="weather.heading" @clicked="titleClicked" />
+              <heading :text="weather.heading" />
               <h3 class="location">{{weather.location}}</h3>
               <p class="temp">
                 <span class="temp-value">{{weather.temp}}</span>
                 <span class="deg">0</span>
-                <a href="javascript:;"><span class="temp-type">C</span></a>
+                <a><span class="temp-type">C</span></a>
               </p>
             </div>
           </div>
@@ -92,7 +82,7 @@ export default {
   data() {
     return {
       key: "6d5be153d1845439a14a46ff7b6fd28a",
-      city: 'Málaga',
+      city: 'malaga',
       language: 'en',
       weather: {
         heading: '',
@@ -136,19 +126,12 @@ export default {
         console.error("Error al intentar pasar los valores de la web, revise los datos introducidos.", error)
       }
     },
-    titleClicked() {
-      this.whatIsMyWeather(this.city)
-    },
     cityChanged(selectedCity) {
-      console.log(selectedCity)
       this.city = selectedCity
     }
   },
   mounted() {
     this.whatIsMyWeather(this.city)
-    /*       setInterval(()=>{
-            this.whatIsMyWeather(this.city, 5000)
-          }) */
   }
 }
 </script>

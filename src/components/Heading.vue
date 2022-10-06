@@ -3,25 +3,13 @@
 </template>
 
 <script>
-  export default{
-    name: 'Heading',
-    props: {
-      text:{
-        type: String,
-        required: true
-      }
-    },
-    methods:{
-      titleClicked(){
-        this.$emit('clicked')
-      }
+export default {
+  name: 'Heading',
+  props: {
+    text: {
+      type: String,
+      required: true
     }
   }
+}
 </script>
-
-<style scoped>
-  .heading{
-    font-size: 24px;
-    font-weight: 800;
-  }
-</style>
