@@ -30,7 +30,6 @@
           </div>
           <div class="top">
             <div class="wrapper">
-              <!-- Prueba de componente -->
               <heading :text="weather.heading" />
               <h3 class="location">{{weather.location}}</h3>
               <p class="temp">
