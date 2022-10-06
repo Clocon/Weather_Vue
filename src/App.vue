@@ -95,9 +95,11 @@ export default {
   },
   watch: {
     city() {
+      localStorage.setItem("selected_city", this.city)
       this.whatIsMyWeather()
     },
     language() {
+      localStorage.setItem("selected_language", this.language)
       this.whatIsMyWeather()
     }
   },
@@ -131,6 +133,15 @@ export default {
     }
   },
   mounted() {
+    const selectedCity = localStorage.getItem("selected_city")
+    const selectedLanguage = localStorage.getItem("selected_language")
+
+    if (selectedCity) {
+      this.city = localStorage.getItem("selected_city")
+    }
+    if (selectedLanguage) {
+      this.language = localStorage.getItem("selected_language")
+    }
     this.whatIsMyWeather(this.city)
   }
 }
